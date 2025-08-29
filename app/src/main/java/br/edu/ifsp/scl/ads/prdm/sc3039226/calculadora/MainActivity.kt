@@ -45,27 +45,27 @@ class MainActivity : AppCompatActivity() {
 
         binding.plus.setOnClickListener {
             binding.smallNum.text = binding.bigNum.text.toString() + " + "
-            binding.bigNum.text = ""
+            binding.bigNum.text = "0"
             currOp = 1
         }
         binding.minus.setOnClickListener {
             binding.smallNum.text = binding.bigNum.text.toString() + " - "
-            binding.bigNum.text = ""
+            binding.bigNum.text = "0"
             currOp = 2
         }
         binding.multiply.setOnClickListener {
             binding.smallNum.text = binding.bigNum.text.toString() + " * "
-            binding.bigNum.text = ""
+            binding.bigNum.text = "0"
             currOp = 3
         }
         binding.divide.setOnClickListener {
             binding.smallNum.text = binding.bigNum.text.toString() + " / "
-            binding.bigNum.text = ""
+            binding.bigNum.text = "0"
             currOp = 4
         }
 
         binding.Clear.setOnClickListener {
-            binding.bigNum.text = ""
+            binding.bigNum.text = "0"
             binding.smallNum.text = ""
         }
         binding.Backspace.setOnClickListener {
@@ -73,11 +73,17 @@ class MainActivity : AppCompatActivity() {
             if (currVal.isNotEmpty()) {
                 binding.bigNum.text = currVal.substring(0, currVal.length - 1)
             }
+            if (currVal.isEmpty()) {
+                binding.bigNum.text = "0"
+            }
         }
 
         binding.equals.setOnClickListener {
             when (currOp) {
                 1 -> addNumbers()
+                2 -> subNumbers()
+                3 -> multNumbers()
+                4 -> divNumbers()
             }
         }
     }
@@ -88,6 +94,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun addNumbers () {
         val firstNumber = binding.smallNum.text.toString().trim()
         val secNumber = binding.bigNum.text.toString().trim()
@@ -96,6 +103,38 @@ class MainActivity : AppCompatActivity() {
         val num2 = secNumber.toDouble()
 
         binding.bigNum.text = (num1 + num2).toString()
+        binding.smallNum.text = "0"
+    }
+    private fun subNumbers () {
+        val firstNumber = binding.smallNum.text.toString().trim()
+        val secNumber = binding.bigNum.text.toString().trim()
+
+        val num1 = firstNumber.substring(0, firstNumber.length -2).toDouble()
+        val num2 = secNumber.toDouble()
+
+        binding.bigNum.text = (num1 - num2).toString()
+        binding.smallNum.text = "0"
     }
 
+    private fun multNumbers () {
+        val firstNumber = binding.smallNum.text.toString().trim()
+        val secNumber = binding.bigNum.text.toString().trim()
+
+        val num1 = firstNumber.substring(0, firstNumber.length -2).toDouble()
+        val num2 = secNumber.toDouble()
+
+        binding.bigNum.text = (num1 * num2).toString()
+        binding.smallNum.text = "0"
+    }
+
+    private fun divNumbers () {
+        val firstNumber = binding.smallNum.text.toString().trim()
+        val secNumber = binding.bigNum.text.toString().trim()
+
+        val num1 = firstNumber.substring(0, firstNumber.length -2).toDouble()
+        val num2 = secNumber.toDouble()
+
+        binding.bigNum.text = (num1 / num2).toString()
+        binding.smallNum.text = "0"
+    }
 }
