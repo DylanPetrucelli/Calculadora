@@ -83,23 +83,24 @@ class MainActivity : AppCompatActivity() {
         binding.Clear.setOnClickListener {
             binding.bigNum.text = "0"
             binding.smallNum.text = ""
+            isNewNumber = true
         }
         binding.Backspace.setOnClickListener {
             val currVal = binding.bigNum.text.toString()
             if (currVal.isNotEmpty()) {
                 binding.bigNum.text = currVal.substring(0, currVal.length - 1)
             }
-            if (currVal.isEmpty()) {
-                binding.bigNum.text = "0"
-            }
         }
 
+        //I cannot stop this from crashing when the small number is zero this does not work at all
         binding.equals.setOnClickListener {
-            when (currOp) {
-                1 -> addNumbers()
-                2 -> subNumbers()
-                3 -> multNumbers()
-                4 -> divNumbers()
+            if (binding.smallNum.text != "0" && binding.smallNum.text.isNotEmpty()) {
+                when (currOp) {
+                    1 -> addNumbers()
+                    2 -> subNumbers()
+                    3 -> multNumbers()
+                    4 -> divNumbers()
+                }
             }
         }
     }
@@ -113,7 +114,7 @@ class MainActivity : AppCompatActivity() {
         val num2 = secNumber.toDouble()
 
         binding.bigNum.text = (num1 + num2).toString()
-        binding.smallNum.text = "0"
+        binding.smallNum.text = "0  "
     }
     private fun subNumbers () {
         val firstNumber = binding.smallNum.text.toString().trim()
@@ -123,7 +124,7 @@ class MainActivity : AppCompatActivity() {
         val num2 = secNumber.toDouble()
 
         binding.bigNum.text = (num1 - num2).toString()
-        binding.smallNum.text = "0"
+        binding.smallNum.text = "0  "
     }
 
     private fun multNumbers () {
@@ -134,7 +135,7 @@ class MainActivity : AppCompatActivity() {
         val num2 = secNumber.toDouble()
 
         binding.bigNum.text = (num1 * num2).toString()
-        binding.smallNum.text = "0"
+        binding.smallNum.text = "0  "
     }
 
     @SuppressLint("SetTextI18n")
@@ -152,6 +153,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.bigNum.text = (num1 / num2).toString()
-        binding.smallNum.text = "0"
+        binding.smallNum.text = "0  "
     }
 }
