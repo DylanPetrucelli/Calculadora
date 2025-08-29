@@ -25,16 +25,16 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        binding.one.setOnClickListener { binding.bigNum.append("1") }
-        binding.two.setOnClickListener { binding.bigNum.append("2") }
-        binding.three.setOnClickListener { binding.bigNum.append("3") }
-        binding.four.setOnClickListener { binding.bigNum.append("4") }
-        binding.five.setOnClickListener { binding.bigNum.append("5") }
-        binding.six.setOnClickListener { binding.bigNum.append("6") }
-        binding.seven.setOnClickListener { binding.bigNum.append("7") }
-        binding.eight.setOnClickListener { binding.bigNum.append("8") }
-        binding.nine.setOnClickListener { binding.bigNum.append("9") }
-        binding.zero.setOnClickListener { binding.bigNum.append("0") }
+        binding.one.setOnClickListener { clearZero(); binding.bigNum.append("1") }
+        binding.two.setOnClickListener { clearZero(); binding.bigNum.append("2") }
+        binding.three.setOnClickListener { clearZero(); binding.bigNum.append("3") }
+        binding.four.setOnClickListener { clearZero(); binding.bigNum.append("4") }
+        binding.five.setOnClickListener { clearZero(); binding.bigNum.append("5") }
+        binding.six.setOnClickListener { clearZero(); binding.bigNum.append("6") }
+        binding.seven.setOnClickListener { clearZero(); binding.bigNum.append("7") }
+        binding.eight.setOnClickListener { clearZero(); binding.bigNum.append("8") }
+        binding.nine.setOnClickListener { clearZero(); binding.bigNum.append("9") }
+        binding.zero.setOnClickListener { clearZero(); binding.bigNum.append("0") }
         binding.dot.setOnClickListener { binding.bigNum.append(".") }
 
 
@@ -66,9 +66,14 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-
         binding.equals.setOnClickListener {
             //nothing here yet im just commiting so i can save
+        }
+    }
+
+    private fun clearZero () {
+        if (binding.bigNum.text == "0") {
+            binding.bigNum.text = ""
         }
     }
 }
