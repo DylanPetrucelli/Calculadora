@@ -16,6 +16,8 @@ class MainActivity : AppCompatActivity() {
     private var currOp: Int = 0
     //This number represents the current operation being used
     //zero is nothing
+    private var isNewNumber: Boolean = true
+    //clearZero wasnt working so i'm fixing the problem in another way
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,37 +32,51 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        binding.one.setOnClickListener { clearZero(); binding.bigNum.append("1") }
-        binding.two.setOnClickListener { clearZero(); binding.bigNum.append("2") }
-        binding.three.setOnClickListener { clearZero(); binding.bigNum.append("3") }
-        binding.four.setOnClickListener { clearZero(); binding.bigNum.append("4") }
-        binding.five.setOnClickListener { clearZero(); binding.bigNum.append("5") }
-        binding.six.setOnClickListener { clearZero(); binding.bigNum.append("6") }
-        binding.seven.setOnClickListener { clearZero(); binding.bigNum.append("7") }
-        binding.eight.setOnClickListener { clearZero(); binding.bigNum.append("8") }
-        binding.nine.setOnClickListener { clearZero(); binding.bigNum.append("9") }
-        binding.zero.setOnClickListener { clearZero(); binding.bigNum.append("0") }
-        binding.dot.setOnClickListener { binding.bigNum.append(".") }
+        val numberButtons = listOf(binding.one, binding.two, binding.three, binding.four,
+            binding.five, binding.six, binding.seven, binding.eight, binding.nine, binding.zero)
+        numberButtons.forEach { button ->
+            button.setOnClickListener {
+                if (isNewNumber) {
+                    binding.bigNum.text = button.text.toString()
+                    isNewNumber = false
+                } else {
+                    binding.bigNum.append(button.text.toString())
+                }
+            }
+        }
+
+        binding.dot.setOnClickListener {
+            if (isNewNumber) {
+                binding.bigNum.text = "0."
+                isNewNumber = false
+            } else if (!binding.bigNum.text.toString().contains(".")) {
+                binding.bigNum.append(".")
+            }
+        }
 
 
         binding.plus.setOnClickListener {
             binding.smallNum.text = binding.bigNum.text.toString() + " + "
             binding.bigNum.text = "0"
+            isNewNumber = true
             currOp = 1
         }
         binding.minus.setOnClickListener {
             binding.smallNum.text = binding.bigNum.text.toString() + " - "
             binding.bigNum.text = "0"
+            isNewNumber = true
             currOp = 2
         }
         binding.multiply.setOnClickListener {
             binding.smallNum.text = binding.bigNum.text.toString() + " * "
             binding.bigNum.text = "0"
+            isNewNumber = true
             currOp = 3
         }
         binding.divide.setOnClickListener {
             binding.smallNum.text = binding.bigNum.text.toString() + " / "
             binding.bigNum.text = "0"
+            isNewNumber = true
             currOp = 4
         }
 
@@ -85,12 +101,6 @@ class MainActivity : AppCompatActivity() {
                 3 -> multNumbers()
                 4 -> divNumbers()
             }
-        }
-    }
-
-    private fun clearZero () {
-        if (binding.bigNum.text == "0") {
-            binding.bigNum.text = ""
         }
     }
 
@@ -127,6 +137,7 @@ class MainActivity : AppCompatActivity() {
         binding.smallNum.text = "0"
     }
 
+    @SuppressLint("SetTextI18n")
     private fun divNumbers () {
         val firstNumber = binding.smallNum.text.toString().trim()
         val secNumber = binding.bigNum.text.toString().trim()
