@@ -2,13 +2,11 @@ package br.edu.ifsp.scl.ads.prdm.sc3039226.calculadora
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import br.edu.ifsp.scl.ads.prdm.sc3039226.calculadora.databinding.ActivityMainBinding
-import kotlin.properties.Delegates
 
 class MainActivity : AppCompatActivity() {
 
@@ -138,6 +136,7 @@ class MainActivity : AppCompatActivity() {
         binding.smallNum.text = "0  "
     }
 
+
     @SuppressLint("SetTextI18n")
     private fun divNumbers () {
         val firstNumber = binding.smallNum.text.toString().trim()
@@ -147,7 +146,7 @@ class MainActivity : AppCompatActivity() {
         val num2 = secNumber.toDouble()
 
         if (num2.toInt() == 0) {
-            binding.bigNum.text = "don't do that"
+            binding.bigNum.text = "Don't"
             isNewNumber = true
             return
         }
