@@ -145,6 +145,12 @@ class MainActivity : AppCompatActivity() {
         val num1 = firstNumber.substring(0, firstNumber.length -2).toDouble()
         val num2 = secNumber.toDouble()
 
+        if (num2.toInt() == 0) {
+            binding.bigNum.text = "don't do that"
+            isNewNumber = true
+            return
+        }
+
         binding.bigNum.text = (num1 / num2).toString()
         binding.smallNum.text = "0"
     }
