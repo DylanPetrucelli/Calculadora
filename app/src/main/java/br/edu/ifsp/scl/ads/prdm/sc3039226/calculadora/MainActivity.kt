@@ -1,5 +1,6 @@
 package br.edu.ifsp.scl.ads.prdm.sc3039226.calculadora
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -11,6 +12,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -22,8 +24,6 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-    }
-}
 
         binding.one.setOnClickListener { binding.bigNum.append("1") }
         binding.two.setOnClickListener { binding.bigNum.append("2") }
@@ -37,5 +37,38 @@ class MainActivity : AppCompatActivity() {
         binding.zero.setOnClickListener { binding.bigNum.append("0") }
         binding.dot.setOnClickListener { binding.bigNum.append(".") }
 
+
+        binding.plus.setOnClickListener {
+            binding.smallNum.text = binding.bigNum.text.toString() + " + "
+            binding.bigNum.text = ""
+        }
+        binding.minus.setOnClickListener {
+            binding.smallNum.text = binding.bigNum.text.toString() + " - "
+            binding.bigNum.text = ""
+        }
+        binding.multiply.setOnClickListener {
+            binding.smallNum.text = binding.bigNum.text.toString() + " * "
+            binding.bigNum.text = ""
+        }
+        binding.divide.setOnClickListener {
+            binding.smallNum.text = binding.bigNum.text.toString() + " / "
+            binding.bigNum.text = ""
+        }
+
+        binding.Clear.setOnClickListener {
+            binding.bigNum.text = ""
+            binding.smallNum.text = ""
+        }
+        binding.Backspace.setOnClickListener {
+            val currVal = binding.bigNum.text.toString()
+            if (currVal.isNotEmpty()) {
+                binding.bigNum.text = currVal.substring(0, currVal.length - 1)
+            }
+        }
+
+
+        binding.equals.setOnClickListener {
+            //nothing here yet im just commiting so i can save
+        }
     }
 }
